@@ -1,0 +1,32 @@
+apply plugin: 'com.android.library'
+//引入通用配置代码
+apply from: '../commonConfig.gradle'
+android {
+    compileSdkVersion android.compileSdkVersion
+    defaultConfig {
+
+        minSdkVersion android.minSdkVersion
+        targetSdkVersion android.targetSdkVersion
+        versionCode android.versionCode
+        versionName android.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation dependenciesLib.support_v7
+    testImplementation dependenciesLib.junit
+    androidTestImplementation dependenciesLib.runner
+    androidTestImplementation dependenciesLib.espresso
+    api project(path: ':latte_core')
+}
