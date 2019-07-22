@@ -48,9 +48,9 @@ dependencies {
 
     api dependenciesLib.butterknife
     annotationProcessor dependenciesLib.butterknife_compiler
-    implementation dependenciesLib.retrofit
-    implementation dependenciesLib.converter_gson
-    implementation dependenciesLib.rxjava
-    implementation dependenciesLib.rxandroid
-    implementation dependenciesLib.okhttp
+    api dependenciesLib.retrofit
+    api dependenciesLib.converter_gson
+    api dependenciesLib.rxjava
+    api dependenciesLib.rxandroid
+    api dependenciesLib.okhttp
 }
