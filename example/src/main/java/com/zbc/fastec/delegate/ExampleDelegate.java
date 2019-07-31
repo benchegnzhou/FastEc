@@ -64,10 +64,10 @@ public class ExampleDelegate extends LatteDelegate {
                 .get();
     }
 
-    @OnClick({R.id.})
+    @OnClick({R.id.icon_text})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.:
+            case R.id.icon_text:
                 break;
             default:
         }
