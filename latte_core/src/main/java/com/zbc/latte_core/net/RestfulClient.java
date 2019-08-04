@@ -6,14 +6,18 @@ import com.zbc.latte_core.net.callback.IFailure;
 import com.zbc.latte_core.net.callback.IRequest;
 import com.zbc.latte_core.net.callback.ISuccess;
 import com.zbc.latte_core.net.callback.RequestCallBacks;
+import com.zbc.latte_core.net.download.DownloadHandle;
 
+import java.io.File;
 import java.util.WeakHashMap;
 
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.http.GET;
+
 
 /**
  * Created by benchengzhou on 2019/7/21 22:14.
@@ -25,26 +29,38 @@ import retrofit2.http.GET;
 public class RestfulClient {
     private final String URL;
     private static WeakHashMap<String, Object> PARAMS = RestCreator.getParams();
+    private final String  DOWN_DIR;
+    private final String EXTENSION;
+    private final String NAME;
     private final ISuccess SUCCESS;
     private final IFailure FAILURE;
     private final IError ERROR;
     private final IRequest REQUEST;
     private final RequestBody BODY;
+    private final File FILE;
 
     public RestfulClient(String url,
                          WeakHashMap<String, Object> params,
+                         String  downDir,
+                         String  extension,
+                         String  fileName,
                          ISuccess success,
                          IFailure failure,
                          IError error,
                          IRequest request,
-                         RequestBody body) {
+                         RequestBody body,
+                         File file) {
         this.URL = url;
         this.PARAMS = params;
+        this.DOWN_DIR = downDir;
+        this.NAME = fileName;
+        this.EXTENSION = extension;
         this.SUCCESS = success;
         this.FAILURE = failure;
         this.ERROR = error;
         this.REQUEST = request;
         this.BODY = body;
+        this.FILE = file;
     }
 
 
@@ -74,12 +90,25 @@ public class RestfulClient {
                 break;
             case POST:
                 call = service.post(URL, PARAMS);
+            case POST_RAW:
+                call = service.postRaw(URL, BODY);
                 break;
             case PUT:
                 call = service.put(URL, PARAMS);
                 break;
+            case PUT_RAW:
+                call = service.putRaw(URL, BODY);
+                break;
             case DELETE:
                 call = service.delete(URL, PARAMS);
+                break;
+            case UPLOAD:
+                if (FILE == null) {
+                    return;
+                }
+                RequestBody body = RequestBody.create(MediaType.parse(MultipartBody.FORM.toString()), FILE);
+                MultipartBody.Part file = MultipartBody.Part.createFormData("file", FILE.getName());
+                call = RestCreator.getInstance().upload(URL, file);
                 break;
             default:
         }
@@ -100,7 +129,16 @@ public class RestfulClient {
     }
 
     public final void post() {
-        request(HttpMethod.POST);
+        if (BODY == null) {
+            request(HttpMethod.POST);
+        } else {
+            if (!PARAMS.isEmpty()) {
+                throw new RuntimeException("params must be empty");
+            }
+            //使用原始的post请求
+            request(HttpMethod.POST_RAW);
+        }
+
     }
 
     public final void put() {
@@ -109,6 +147,11 @@ public class RestfulClient {
 
     public final void delete() {
         request(HttpMethod.DELETE);
+    }
+
+
+    public final void download() {
+        new DownloadHandle(URL,DOWN_DIR,EXTENSION,NAME,SUCCESS,FAILURE,ERROR,REQUEST).handleDownload();
     }
 
 

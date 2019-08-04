@@ -5,6 +5,7 @@ import com.zbc.latte_core.net.callback.IFailure;
 import com.zbc.latte_core.net.callback.IRequest;
 import com.zbc.latte_core.net.callback.ISuccess;
 
+import java.io.File;
 import java.util.WeakHashMap;
 
 import okhttp3.MediaType;
@@ -25,6 +26,10 @@ public class RestfulClientBuilder {
     private IError mIError;
     private IRequest mIRequest;
     private RequestBody mBody;
+    private File mFile;
+    private String mDownDir;
+    private String mExtension;
+    private String mFileName;
 
     RestfulClientBuilder() {
     }
@@ -42,6 +47,46 @@ public class RestfulClientBuilder {
 
     public final RestfulClientBuilder params(String key, Object value) {
         PARAMS.put(key, value);
+        return this;
+    }
+
+    public final RestfulClientBuilder file(File file) {
+        mFile = file;
+        return this;
+    }
+
+    public final RestfulClientBuilder file(String filePath) {
+        mFile = new File(filePath);
+        return this;
+    }
+
+    /**
+     * 文件下载跟目录
+     * @param dir
+     * @return
+     */
+    public final RestfulClientBuilder dir(String dir) {
+        mDownDir = dir;
+        return this;
+    }
+
+    /**
+     * 文件的后缀名
+     * @param extension
+     * @return
+     */
+    public final RestfulClientBuilder extension(String extension) {
+        mExtension = extension;
+        return this;
+    }
+
+    /**
+     * 文件下载保存的名称
+     * @param name
+     * @return
+     */
+    public final RestfulClientBuilder name(String name) {
+        mFileName = name;
         return this;
     }
 
@@ -78,6 +123,6 @@ public class RestfulClientBuilder {
 
 
     public final RestfulClient build() {
-        return new RestfulClient(mUrl, PARAMS, mISuccess, mIFailure, mIError, mIRequest, mBody);
+        return new RestfulClient(mUrl, PARAMS, mDownDir, mExtension, mFileName, mISuccess, mIFailure, mIError, mIRequest, mBody, mFile);
     }
 }

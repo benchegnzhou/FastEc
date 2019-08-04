@@ -53,4 +53,5 @@ dependencies {
     api dependenciesLib.rxjava
     api dependenciesLib.rxandroid
     api dependenciesLib.okhttp
+    implementation 'com.wang.avi:library:2.1.3'
 }
