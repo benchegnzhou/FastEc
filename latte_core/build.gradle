@@ -52,6 +52,6 @@ dependencies {
     api dependenciesLib.converter_gson
     api dependenciesLib.rxjava
     api dependenciesLib.rxandroid
-    api dependenciesLib.okhttp
+    api dependenciesLib.okhttp3
     implementation 'com.wang.avi:library:2.1.3'
 }

@@ -5,7 +5,8 @@ import com.joanzapata.iconify.Iconify;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.WeakHashMap;
+
+import okhttp3.Interceptor;
 
 /**
  * Created by benchengzhou on 2019/7/20 19:48.
@@ -15,11 +16,12 @@ import java.util.WeakHashMap;
  * 备    注：
  */
 public class Config {
-    private static final HashMap<String, Object> LATTE_CONFIGS = new HashMap<>();
+    private static final HashMap<Object, Object> LATTE_CONFIGS = new HashMap<>();
     private static final ArrayList<IconFontDescriptor> ICON_FONT_DESCRIPTORS = new ArrayList<>();
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     private Config() {
-        LATTE_CONFIGS.put(ConfigType.CONFIG_READY.name(), false);
+        LATTE_CONFIGS.put(ConfigType.CONFIG_READY, false);
     }
 
     public static Config getInstance() {
@@ -34,20 +36,30 @@ public class Config {
      * 完成配置
      */
     public void config() {
-        LATTE_CONFIGS.put(ConfigType.CONFIG_READY.name(), true);
+        LATTE_CONFIGS.put(ConfigType.CONFIG_READY, true);
         initIcons();
     }
 
 
-    public HashMap<String, Object> getLatteConfigs() {
+    public HashMap<Object, Object> getLatteConfigs() {
         return LATTE_CONFIGS;
     }
 
     public Config withApiHost(String apiHost) {
-        LATTE_CONFIGS.put(ConfigType.API_HOST.name(), apiHost);
+        LATTE_CONFIGS.put(ConfigType.API_HOST, apiHost);
         return this;
     }
 
+    public final Config withInterceptor(Interceptor interceptor) {
+        INTERCEPTORS.add(interceptor);
+        LATTE_CONFIGS.put(ConfigType.INTERCEPTOR,INTERCEPTORS);
+        return this;
+    }
+    public final Config withInterceptors(ArrayList<Interceptor> interceptors) {
+        INTERCEPTORS.addAll(interceptors);
+        LATTE_CONFIGS.put(ConfigType.INTERCEPTOR,INTERCEPTORS);
+        return this;
+    }
 
     public void initIcons() {
         if (ICON_FONT_DESCRIPTORS.size() > 0) {
@@ -64,8 +76,9 @@ public class Config {
         return this;
     }
 
+
     public boolean checkCongig() {
-        final boolean isReady = (boolean) LATTE_CONFIGS.get(ConfigType.CONFIG_READY.name());
+        final boolean isReady = (boolean) LATTE_CONFIGS.get(ConfigType.CONFIG_READY);
         if (!isReady) {
             throw new RuntimeException("configration is not ready,call config");
         }
@@ -74,6 +87,6 @@ public class Config {
 
     public <T> T getConfig(Enum<ConfigType> configType) {
         checkCongig();
-        return (T) LATTE_CONFIGS.get(configType.name());
+        return (T) LATTE_CONFIGS.get(configType);
     }
 }

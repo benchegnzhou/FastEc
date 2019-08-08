@@ -45,6 +45,17 @@ public abstract class BaseDdelegate extends SwipeBackFragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initListener();
+        initData();
+    }
+
+    protected abstract void initListener();
+
+    protected abstract void initData();
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (mUnbinder != null) {

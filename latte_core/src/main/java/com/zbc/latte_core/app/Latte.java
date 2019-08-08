@@ -14,15 +14,15 @@ import java.util.WeakHashMap;
  */
 public class Latte {
     public static Config init(Context context) {
-        Config.getInstance().getLatteConfigs().put(ConfigType.APPLICATION_CONTEXT.name(), context);
+        Config.getInstance().getLatteConfigs().put(ConfigType.APPLICATION_CONTEXT, context);
         return Config.getInstance();
     }
 
-    public static HashMap<String, Object> getConfigs() {
+    public static HashMap<Object, Object> getConfigs() {
         return Config.getInstance().getLatteConfigs();
     }
 
     public static Context getApplicationContext() {
-        return (Context) Config.getInstance().getLatteConfigs().get(ConfigType.APPLICATION_CONTEXT.name());
+        return (Context) Config.getInstance().getLatteConfigs().get(ConfigType.APPLICATION_CONTEXT);
     }
 }

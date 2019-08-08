@@ -40,7 +40,7 @@ public class RequestCallBacks implements Callback<String> {
     @Override
     public void onFailure(Call<String> call, Throwable t) {
         if (failure != null) {
-            failure.onFail();
+            failure.onFail( call, t);
         }
         if (request != null) {
             request.onRequestFinish();

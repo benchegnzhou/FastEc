@@ -67,7 +67,7 @@ public class DownloadHandle {
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
                         if (FAILURE != null) {
-                            FAILURE.onFail();
+                            FAILURE.onFail(call,t);
                         }
                     }
                 });

@@ -8,8 +8,24 @@ package com.zbc.latte_core.app;
  * 备    注：
  */
 public enum ConfigType {
+    /**
+     * 主机IP
+     */
     API_HOST,
+    /**
+     * application上下文
+     */
     APPLICATION_CONTEXT,
+    /**
+     * 初始化配置是否ok
+     */
     CONFIG_READY,
-    ICON
+    /**
+     * icon
+     */
+    ICON,
+    /**
+     * retrofit拦截器
+     */
+    INTERCEPTOR
 }
