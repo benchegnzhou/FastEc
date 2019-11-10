@@ -3,6 +3,10 @@ import java.lang.annotation.AnnotationTypeMismatchException
 apply plugin: 'com.android.application'
 //引入通用配置代码
 apply from: '../commonConfig.gradle'
+
+//数据库greendao
+apply plugin: 'org.greenrobot.greendao' // apply plugin
+
 android {
     compileSdkVersion android.compileSdkVersion
     defaultConfig {
@@ -19,6 +23,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    //核心数据库配置
+    greendao {
+        //schemaVersion 7 //数据库版本号
+        schemaVersion android.greendaoDbVersion //数据库版本号
+        daoPackage 'com.zbc.fastec.db'// 设置DaoMaster、DaoSession、Dao 包名
+        targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录
+    }
+
+
+        compileOptions {
+            sourceCompatibility 1.8
+            targetCompatibility 1.8
+        }
+
+
 }
 //(dependenciesLib.support_v7) {
 //    exclude module: 'support-annotations'
@@ -33,4 +53,10 @@ dependencies {
     androidTestImplementation dependenciesLib.espresso
     implementation project(path: ':latte_ec')
     annotationProcessor project(path : ':latte_compiler')
+    implementation project(path: ':latte_anntations')
+
+    //数据库 GreenDao
+    implementation 'org.greenrobot:greendao:3.2.2'
+
+
 }
