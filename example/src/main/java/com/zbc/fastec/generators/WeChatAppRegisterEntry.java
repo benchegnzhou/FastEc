@@ -1,6 +1,6 @@
 package com.zbc.fastec.generators;
 
-import com.zbc.latte_anntations.anntations.EntryGenerator;
+import com.zbc.latte_anntations.anntations.AppRegisterGenerator;
 import com.zbc.latte_core.templates.AppRegisterTemplate;
 
 /**
@@ -10,8 +10,8 @@ import com.zbc.latte_core.templates.AppRegisterTemplate;
  * 类    名： WeChatAppRegisterEntry
  * 备    注：
  */
-@EntryGenerator(
-        packageName = "com.zbc.fastec.templates",
+@AppRegisterGenerator(
+        packageName = "com.zbc.fastec",
         entryTemplete  = AppRegisterTemplate.class
 )
 public interface WeChatAppRegisterEntry {

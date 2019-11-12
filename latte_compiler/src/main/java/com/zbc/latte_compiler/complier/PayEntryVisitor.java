@@ -21,37 +21,26 @@ public class PayEntryVisitor extends SimpleAnnotationValueVisitor7<Void, Void> {
     private TypeMirror mTypeMirrorirror = null;
     private String mPacageName = null;
 
-    public Filer getmFiler() {
-        return mFiler;
-    }
+
 
     public void setmFiler(Filer mFiler) {
         this.mFiler = mFiler;
-    }
-
-    public TypeMirror getmTypeMirrorirror() {
-        return mTypeMirrorirror;
-    }
-
-    public void setmTypeMirrorirror(TypeMirror mTypeMirrorirror) {
-        this.mTypeMirrorirror = mTypeMirrorirror;
-    }
-
-    public String getmPacageName() {
-        return mPacageName;
-    }
-
-    public void setmPacageName(String mPacageName) {
-        this.mPacageName = mPacageName;
     }
 
 
     @Override
     public Void visitString(String var1, Void var2) {
         mPacageName = var1;
-        generateJavaCode();
         return var2;
     }
+
+    @Override
+    public Void visitType(TypeMirror typeMirror, Void p) {
+        mTypeMirrorirror = typeMirror;
+        generateJavaCode();
+        return p;
+    }
+
 
     /**
      * 写一个生成java代码的方法

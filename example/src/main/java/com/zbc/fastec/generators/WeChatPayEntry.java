@@ -1,7 +1,6 @@
 package com.zbc.fastec.generators;
 
-import com.zbc.latte_anntations.anntations.EntryGenerator;
-import com.zbc.latte_core.templates.AppRegisterTemplate;
+import com.zbc.latte_anntations.anntations.PayEntryGenerator;
 import com.zbc.latte_core.templates.WXPayEntryTemplate;
 
 /**
@@ -11,9 +10,9 @@ import com.zbc.latte_core.templates.WXPayEntryTemplate;
  * 类    名： WeChatPayEntry
  * 备    注：
  */
-@EntryGenerator(
-        packageName = "com.zbc.fastec.templates",
-        entryTemplete  = WXPayEntryTemplate.class
+@PayEntryGenerator(
+        packageName = "com.zbc.fastec",
+        payEntryTemplete  = WXPayEntryTemplate.class
 )
 public interface WeChatPayEntry {
 

@@ -28,6 +28,7 @@ import javax.lang.model.element.TypeElement;
  * 类    名： LatteProcessor
  * 备    注：
  */
+
 @AutoService(Process.class)
 public class LatteProcessor extends AbstractProcessor {
 
@@ -35,14 +36,13 @@ public class LatteProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         final Set<String> type = new LinkedHashSet<>();
-
+        System.out.println("打印了——————————");
         final Set<Class<? extends Annotation>> supportannotation = getSupportedAnnotations();
         for (Class<? extends Annotation> typeItem : supportannotation) {
             type.add(typeItem.getCanonicalName());
-
-
+            System.out.println("打印了——————————");
         }
-        return super.getSupportedAnnotationTypes();
+        return type;
     }
 
     private Set<Class<? extends Annotation>> getSupportedAnnotations() {
@@ -80,11 +80,11 @@ public class LatteProcessor extends AbstractProcessor {
         for (Element element : environment.getElementsAnnotatedWith(annotation)) {
             List<? extends AnnotationMirror> annotationMirrors = element.getAnnotationMirrors();
             for (AnnotationMirror mirror : annotationMirrors) {
-                Map<? extends ExecutableElement, ? extends AnnotationValue> mirrorElementValues = mirror.getElementValues();
+                Map<? extends ExecutableElement, ? extends AnnotationValue> mirrorElementValues
+                        = mirror.getElementValues();
 
                 for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : mirrorElementValues.entrySet()) {
-                    AnnotationValue value = entry.getValue();
-                    Object accept = value.accept(valueVisitor, null);
+                    entry.getValue().accept(valueVisitor, null);
                 }
             }
         }
@@ -98,7 +98,7 @@ public class LatteProcessor extends AbstractProcessor {
     private void generateEntryCode(RoundEnvironment environment) {
         EntryVisitor entryVisitor = new EntryVisitor();
         entryVisitor.setmFiler(processingEnv.getFiler());
-        scan(environment, EntryGenerator.class, null);
+        scan(environment, EntryGenerator.class, entryVisitor);
     }
 
     /**
@@ -109,7 +109,7 @@ public class LatteProcessor extends AbstractProcessor {
     private void generatePayEntryCode(RoundEnvironment environment) {
         PayEntryVisitor payEntryVisitor = new PayEntryVisitor();
         payEntryVisitor.setmFiler(processingEnv.getFiler());
-        scan(environment, PayEntryGenerator.class, null);
+        scan(environment, PayEntryGenerator.class, payEntryVisitor);
     }
 
     /**
@@ -120,7 +120,7 @@ public class LatteProcessor extends AbstractProcessor {
     private void generateAppRegisterCode(RoundEnvironment environment) {
         AppRegisterVisitor appRegistrVisitor = new AppRegisterVisitor();
         appRegistrVisitor.setmFiler(processingEnv.getFiler());
-        scan(environment, AppRegisterGenerator.class, null);
+        scan(environment, AppRegisterGenerator.class, appRegistrVisitor);
     }
 
 }
