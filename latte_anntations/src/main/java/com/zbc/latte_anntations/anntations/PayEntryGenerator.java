@@ -18,8 +18,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE) //处理阶段标注 处理在源码阶段，在编译打包之前
 public @interface PayEntryGenerator {
 
+    //声明该注解所要生成的包名规则
     String packageName();
-
-    Class<?> payEntryTemplete();
+    //声明该注解所要生成的java类需要继承哪个父类
+    Class<?> entryTemplete();
 
 }

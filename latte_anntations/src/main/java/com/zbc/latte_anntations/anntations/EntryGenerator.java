@@ -13,13 +13,12 @@ import java.lang.annotation.Target;
  * 备    注：
  */
 
-
 @Target(ElementType.TYPE) //标明注解是加在类上面的
 @Retention(RetentionPolicy.SOURCE) //处理阶段标注 处理在源码阶段，在编译打包之前
 public @interface EntryGenerator {
-
+    //声明该注解所要生成的包名规则
     String packageName();
-
+    //声明该注解所要生成的java类需要继承哪个父类
     Class<?> entryTemplete();
 
 

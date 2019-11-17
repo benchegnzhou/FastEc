@@ -33,12 +33,17 @@ android {
     }
 
 
-        compileOptions {
-            sourceCompatibility 1.8
-            targetCompatibility 1.8
-        }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 
 
+
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }
 //(dependenciesLib.support_v7) {
 //    exclude module: 'support-annotations'
@@ -52,11 +57,16 @@ dependencies {
     androidTestImplementation dependenciesLib.runner
     androidTestImplementation dependenciesLib.espresso
     implementation project(path: ':latte_ec')
-    annotationProcessor project(path : ':latte_compiler')
+    implementation project(path: ':latte_compiler')
+    annotationProcessor   project(path: ':latte_compiler')
     implementation project(path: ':latte_anntations')
 
     //数据库 GreenDao
     implementation 'org.greenrobot:greendao:3.2.2'
 
+
+//    annotationProcessor  'com.google.auto.service:auto-service:1.0-rc2'
+//    implementation 'com.squareup:javapoet:1.11.1'
+//    implementation 'com.google.auto:auto-common:0.10'
 
 }

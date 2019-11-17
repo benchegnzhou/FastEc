@@ -1,14 +1,20 @@
 apply plugin: 'java-library'
-
+//指定编译的编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.google.auto.service:auto-service:1.0-rc2'
+    //annotationProcessor 'com.google.auto.service:auto-service:1.0-rc2'
+
+
     implementation 'com.squareup:javapoet:1.11.1'
+    implementation 'com.google.auto.service:auto-service:1.0-rc2'
     implementation 'com.google.auto:auto-common:0.10'
     implementation project(':latte_anntations')
 }
 
-sourceCompatibility = "7"
-targetCompatibility = "7"
+sourceCompatibility = "1.8"  //需要指定为java7版本
+targetCompatibility = "1.8"

@@ -11,14 +11,22 @@ import javax.lang.model.util.SimpleAnnotationValueVisitor7;
 
 /**
  * Created by benchengzhou on 2019/11/10 19:04.
- * 作者邮箱：mappstore@163.com
- * 功能描述：
+ * 作者邮箱： mappstore@163.com
+ * 功能描述： 注解内部属性解析器
  * 类    名： EntryVisitor
  * 备    注：
  */
+
 public class EntryVisitor extends SimpleAnnotationValueVisitor7<Void, Void> {
+
+    /**
+     * 需要遍历的
+     */
     private Filer mFiler = null;
     private TypeMirror mTypeMirrorirror = null;
+    /**
+     * 包名
+     */
     private String mPacageName = null;
 
 
@@ -29,6 +37,7 @@ public class EntryVisitor extends SimpleAnnotationValueVisitor7<Void, Void> {
 
     @Override
     public Void visitString(String pacageName, Void var2) {
+        //解析得到的包名
         mPacageName = pacageName;
         return var2;
     }

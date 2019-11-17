@@ -12,7 +12,7 @@ import com.zbc.latte_core.templates.WXPayEntryTemplate;
  */
 @PayEntryGenerator(
         packageName = "com.zbc.fastec",
-        payEntryTemplete  = WXPayEntryTemplate.class
+        entryTemplete  = WXPayEntryTemplate.class
 )
 public interface WeChatPayEntry {
 

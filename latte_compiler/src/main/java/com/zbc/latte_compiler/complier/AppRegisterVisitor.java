@@ -51,6 +51,7 @@ public class AppRegisterVisitor extends SimpleAnnotationValueVisitor7<Void, Void
                         .addModifiers(Modifier.PUBLIC)
                         .addModifiers(Modifier.FINAL)
                         .superclass(TypeName.get(mTypeMirrorirror))
+                        .addJavadoc("微信广播接收器")
                         .build();
         //生成代码
         JavaFile javaFile = JavaFile.builder(mPacageName + ".wxapi", targetActivity)

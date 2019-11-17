@@ -10,9 +10,11 @@ import com.zbc.latte_core.templates.WXEntryTemplate;
  * 类    名： WeChatEntry
  * 备    注：
  */
+
+
 @EntryGenerator(
         packageName = "com.zbc.fastec",
-        entryTemplete  = WXEntryTemplate.class
+        entryTemplete = WXEntryTemplate.class
 )
 public interface WeChatEntry {
 
