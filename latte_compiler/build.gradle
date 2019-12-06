@@ -7,11 +7,12 @@ tasks.withType(JavaCompile) {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    //annotationProcessor 'com.google.auto.service:auto-service:1.0-rc2'
+    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc4'
 
 
+//    annotationProcessor 'com.squareup:javapoet:1.11.1'
     implementation 'com.squareup:javapoet:1.11.1'
-    implementation 'com.google.auto.service:auto-service:1.0-rc2'
+    implementation 'com.google.auto.service:auto-service:1.0-rc4'
     implementation 'com.google.auto:auto-common:0.10'
     implementation project(':latte_anntations')
 }

@@ -1,5 +1,3 @@
-import java.lang.annotation.AnnotationTypeMismatchException
-
 apply plugin: 'com.android.application'
 //引入通用配置代码
 apply from: '../commonConfig.gradle'
@@ -45,12 +43,9 @@ android {
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
-//(dependenciesLib.support_v7) {
-//    exclude module: 'support-annotations'
-//}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation dependenciesLib.support_v7
     implementation dependenciesLib.support_v4
     testImplementation dependenciesLib.junit
@@ -63,10 +58,5 @@ dependencies {
 
     //数据库 GreenDao
     implementation 'org.greenrobot:greendao:3.2.2'
-
-
-//    annotationProcessor  'com.google.auto.service:auto-service:1.0-rc2'
-//    implementation 'com.squareup:javapoet:1.11.1'
-//    implementation 'com.google.auto:auto-common:0.10'
 
 }
